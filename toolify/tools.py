@@ -170,6 +170,60 @@ def pct(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, e
         print(formatted_text)
 
 
+
+def pctm(text: str, tokens: list[int], colors: list, emoji: str = "") -> None:
+    """Prints colored text with multiple color segments and an optional emoji prefix.
+
+    The function splits the input text into segments based on the token counts and
+    applies corresponding colors to each segment. An optional emoji can be prefixed
+    to the final output.
+
+    Args:
+        text: The text to be colored and printed.
+        tokens: A list of integers specifying how many words each color should apply to.
+        colors: A list of color specifications for each token segment.
+            Each element can be either:
+            - A single color code (str or int from COLORS)
+            - A tuple of (text_color, background_color)
+        emoji: Optional emoji key from EMOS dictionary to prefix the output. Defaults to "".
+
+    Example:
+        pctm("Hello world this is colored", [2, 3], ["red", ("blue", "yellow")], "smile")
+        # Prints: 😊 Hello world this is colored
+        # Where "Hello world" is red and "this is colored" has blue text on yellow background
+    """
+    if len(tokens) != len(colors):
+        print("Must provide a color for each token")
+        return
+
+    text_tokens = text.split()
+    next_tokens = 0
+    colored_text = ""
+    for token, color in zip(tokens, colors):
+        if token < 0:
+            token *= -1
+        selected_text = text_tokens[next_tokens : token + next_tokens]
+        next_tokens += token
+        color_code = (
+            COLORS.get(color[0], DEFAULT_COLOR)
+            if len(color) == 2
+            else COLORS.get(color, DEFAULT_COLOR)
+        )
+        bcode_code = BCOLOR.get(color[1], "") if len(color) == 2 else ""
+        selected_text = " ".join(selected_text)
+        colored_text += f"{color_code}{bcode_code}{selected_text}{RESET_COLOR} "
+    if next_tokens != len(text_tokens):
+        colored_text = (f"{colored_text}{RESET_COLOR}{' '.join(text_tokens[next_tokens:])}")
+
+    emoji_char = EMOS.get(emoji, "")
+    formatted_text = f"{colored_text}{RESET_COLOR}"
+
+    if emoji_char:
+        print(f"{emoji_char} {formatted_text}")
+    else:
+        print(formatted_text)
+
+
 def pat(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, emoji: str = "") -> None:
     """Prints Arabic text with proper reshaping and bidirectional display.
 
