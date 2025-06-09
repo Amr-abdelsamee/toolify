@@ -146,29 +146,6 @@ def setup_logger(log_file: str = "log.log", format_type: str = "") -> logging.Lo
     return logger
 
 
-def save_text_list(file_name: str, text_list: List, mode: str = "w") -> None:
-    """Saves a list of text arrays to a file.
-
-    Args:
-        file_name: Path to the output file.
-        text_list: List of arrays to save, each array is joined with spaces.
-        mode: File write mode ("w" for overwrite, "a" for append). Defaults to "w".
-    """
-    with open(file_name, mode, encoding="utf-8") as file:
-        for array in text_list:
-            file.write(" ".join(map(str, array)) + "\n")
-
-
-def save_text(file_name: str, text: str, mode: str = "w") -> None:
-    """Saves a single text string to a file.
-
-    Args:
-        file_name: Path to the output file.
-        text: Text to save.
-        mode: File write mode ("w" for overwrite, "a" for append). Defaults to "w".
-    """
-    with open(file_name, mode, encoding="utf-8") as file:
-        file.write(text + "\n")
 
 
 def line_plotter(
@@ -315,8 +292,6 @@ def print_package_info() -> None:
             "Prints Arabic text with proper reshaping and bidirectional display.",
         ),
         ("setup_logger", "Configures a logger for logging messages to a file."),
-        ("save_text_list", "Saves a list of text arrays to a file."),
-        ("save_text", "Saves a single text string to a file."),
         ("line_plotter", "Saves a line plot for multiple data lists."),
         (
             "sheel_tashkeel",
