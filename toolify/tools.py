@@ -7,59 +7,121 @@ from bidi.algorithm import get_display
 from typing import Union, List, Tuple
 
 # ANSI color codes
-COLORS_STR = {
-    # Foreground
-    "white": "\033[37m",
+
+_COLOR_VALUES = {
     "red": "\033[31m",
     "green": "\033[32m",
-    "blue": "\033[34m",
     "yellow": "\033[33m",
-    "cyan": "\033[36m",
+    "blue": "\033[34m",
     "magenta": "\033[35m",
-    "bred": "\033[91m",
-    "bgreen": "\033[92m",
-    "bblue": "\033[94m",
-    "byellow": "\033[93m",
-    "bcyan": "\033[96m",
-    "bmagenta": "\033[95m",
-    "bwhite": "\033[97m",
-    "bblack": "\033[90m",
-    # Background
-    "bg_red": "\033[41m",
-    "bg_green": "\033[42m",
-    "bg_blue": "\033[44m",
-    "bg_yellow": "\033[43m",
-    "bg_cyan": "\033[46m",
-    "bg_magenta": "\033[45m",
-    "bg_white": "\033[47m",
-    "bg_black": "\033[40m",
-    "bg_bred": "\033[101m",
-    "bg_bgreen": "\033[102m",
-    "bg_bblue": "\033[104m",
-    "bg_byellow": "\033[103m",
-    "bg_bcyan": "\033[106m",
-    "bg_bmagenta": "\033[105m",
-    "bg_bwhite": "\033[107m",
-    "bg_bblack": "\033[100m",
+    "cyan": "\033[36m",
+    "white": "\033[37m",
+    "bright_black": "\033[90m",
+    "bright_red": "\033[91m",
+    "bright_green": "\033[92m",
+    "bright_yellow": "\033[93m",
+    "bright_blue": "\033[94m",
+    "bright_magenta": "\033[95m",
+    "bright_cyan": "\033[96m",
+    "bright_white": "\033[97m",
+}
+_BACKGROUND_VALUES = {
+    "black": "\033[40m",
+    "red": "\033[41m",
+    "green": "\033[42m",
+    "yellow": "\033[43m",
+    "blue": "\033[44m",
+    "magenta": "\033[45m",
+    "cyan": "\033[46m",
+    "white": "\033[47m",
+    "bright_black": "\033[100m",
+    "bright_red": "\033[101m",
+    "bright_green": "\033[102m",
+    "bright_yellow": "\033[103m",
+    "bright_blue": "\033[104m",
+    "bright_magenta": "\033[105m",
+    "bright_cyan": "\033[106m",
+    "bright_white": "\033[107m",
 }
 
+# Foreground color aliases
 COLORS = {
-    1: "\033[37m",  # white
-    2: "\033[31m",  # red
-    3: "\033[32m",  # green
-    4: "\033[34m",  # blue
-    5: "\033[33m",  # yellow
-    6: "\033[36m",  # cyan
-    7: "\033[35m",  # magenta
-    8: "\033[91m",  # bright red
-    9: "\033[92m",  # bright green
-    10: "\033[94m",  # bright blue
-    11: "\033[93m",  # bright yellow
-    12: "\033[96m",  # bright cyan
-    13: "\033[95m",  # bright magenta
-    14: "\033[97m",  # bright white
-    15: "\033[90m",  # bright black
+    # Primary names
+    "white": _COLOR_VALUES["white"],
+    "red": _COLOR_VALUES["red"],
+    "green": _COLOR_VALUES["green"],
+    "blue": _COLOR_VALUES["blue"],
+    "yellow": _COLOR_VALUES["yellow"],
+    "cyan": _COLOR_VALUES["cyan"],
+    "magenta": _COLOR_VALUES["magenta"],
+    "bred": _COLOR_VALUES["bright_red"],
+    "bgreen": _COLOR_VALUES["bright_green"],
+    "bblue": _COLOR_VALUES["bright_blue"],
+    "byellow": _COLOR_VALUES["bright_yellow"],
+    "bcyan": _COLOR_VALUES["bright_cyan"],
+    "bmagenta": _COLOR_VALUES["bright_magenta"],
+    "bwhite": _COLOR_VALUES["bright_white"],
+    "bblack": _COLOR_VALUES["bright_black"],
+    
+    # Numeric aliases
+    1: _COLOR_VALUES["white"],
+    2: _COLOR_VALUES["red"],
+    3: _COLOR_VALUES["green"],
+    4: _COLOR_VALUES["blue"],
+    5: _COLOR_VALUES["yellow"],
+    6: _COLOR_VALUES["cyan"],
+    7: _COLOR_VALUES["magenta"],
+    8: _COLOR_VALUES["bright_red"],
+    9: _COLOR_VALUES["bright_green"],
+    10: _COLOR_VALUES["bright_blue"],
+    11: _COLOR_VALUES["bright_yellow"],
+    12: _COLOR_VALUES["bright_cyan"],
+    13: _COLOR_VALUES["bright_magenta"],
+    14: _COLOR_VALUES["bright_white"],
+    15: _COLOR_VALUES["bright_black"],
 }
+
+# Background color aliases
+BCOLOR = {
+    # Primary names
+    "black": _BACKGROUND_VALUES["black"],
+    "red": _BACKGROUND_VALUES["red"],
+    "green": _BACKGROUND_VALUES["green"],
+    "yellow": _BACKGROUND_VALUES["yellow"],
+    "blue": _BACKGROUND_VALUES["blue"],
+    "magenta": _BACKGROUND_VALUES["magenta"],
+    "cyan": _BACKGROUND_VALUES["cyan"],
+    "white": _BACKGROUND_VALUES["white"],
+    
+    # Bright variants
+    "bblack": _BACKGROUND_VALUES["bright_black"],
+    "bred": _BACKGROUND_VALUES["bright_red"],
+    "bgreen": _BACKGROUND_VALUES["bright_green"],
+    "byellow": _BACKGROUND_VALUES["bright_yellow"],
+    "bblue": _BACKGROUND_VALUES["bright_blue"],
+    "bmagenta": _BACKGROUND_VALUES["bright_magenta"],
+    "bcyan": _BACKGROUND_VALUES["bright_cyan"],
+    "bwhite": _BACKGROUND_VALUES["bright_white"],
+    
+    # Numeric aliases
+    1: _BACKGROUND_VALUES["black"],
+    2: _BACKGROUND_VALUES["red"],
+    3: _BACKGROUND_VALUES["green"],
+    4: _BACKGROUND_VALUES["yellow"],
+    5: _BACKGROUND_VALUES["blue"],
+    6: _BACKGROUND_VALUES["magenta"],
+    7: _BACKGROUND_VALUES["cyan"],
+    8: _BACKGROUND_VALUES["white"],
+    9: _BACKGROUND_VALUES["bright_black"],
+    10: _BACKGROUND_VALUES["bright_red"],
+    11: _BACKGROUND_VALUES["bright_green"],
+    12: _BACKGROUND_VALUES["bright_yellow"],
+    13: _BACKGROUND_VALUES["bright_blue"],
+    14: _BACKGROUND_VALUES["bright_magenta"],
+    15: _BACKGROUND_VALUES["bright_cyan"],
+    16: _BACKGROUND_VALUES["bright_white"],
+}
+
 
 # Emoji mappings 
 EMOS = {
@@ -89,7 +151,7 @@ RESET_COLOR = "\033[0m"
 DEFAULT_COLOR = "\033[37m"
 
 
-def pct(text: str, color: Union[str, int] = 1, emoji: str = "") -> None:
+def pct(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, emoji: str = "") -> None:
     """Prints text in the specified color with an optional emoji.
 
     Args:
@@ -97,15 +159,18 @@ def pct(text: str, color: Union[str, int] = 1, emoji: str = "") -> None:
         color: Color code (int from COLORS or str from COLORS_STR). Defaults to 1 (white).
         emoji: Emoji key from EMOS dictionary. Defaults to empty string.
     """
-    color_code = COLORS.get(color) or COLORS_STR.get(color, DEFAULT_COLOR)
+    color_code = COLORS.get(color, DEFAULT_COLOR)
+    bcode_code = BCOLOR.get(bcolor, "") if bcolor is not None else ""
     emoji_char = EMOS.get(emoji, "")
+
+    formatted_text = f"{color_code}{bcode_code}{text}{RESET_COLOR}"
     if emoji_char:
-        print(f"{emoji_char} {color_code}{text}{RESET_COLOR}")
+        print(f"{emoji_char} {formatted_text}")
     else:
-        print(f"{color_code}{text}{RESET_COLOR}")
+        print(formatted_text)
 
 
-def pat(text: str, color: Union[str, int] = 1, emoji: str = "") -> None:
+def pat(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, emoji: str = "") -> None:
     """Prints Arabic text with proper reshaping and bidirectional display.
 
     Args:
@@ -115,7 +180,7 @@ def pat(text: str, color: Union[str, int] = 1, emoji: str = "") -> None:
     """
     reshaped_text = arabic_reshaper.reshape(text)
     displayed_text = get_display(reshaped_text)
-    pct(displayed_text, color, emoji)
+    pct(displayed_text, color, bcolor, emoji)
 
 
 def setup_logger(log_file: str = "log.log", format_type: str = "") -> logging.Logger:
