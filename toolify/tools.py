@@ -1,6 +1,8 @@
 import re
 import sys
 import logging
+import psutil
+import platform
 from itertools import cycle
 import arabic_reshaper
 from bidi.algorithm import get_display
@@ -374,6 +376,40 @@ def get_available_gpus() -> None:
             print(f"GPU {i}: {torch.cuda.get_device_name(i)}")
     else:
         print("No GPUs detected (CUDA not available)")
+
+
+def print_system_specs():
+    """Prints detailed system specifications including CPU model, number of cores, number of threads, total RAM, and disk information."""
+    
+    print("---------------------")
+    print("System Specifications:")
+    print("---------------------")
+    
+    # CPU Information
+    print(f"CPU Model: {platform.processor()}")
+    print(f"Number of Cores: {psutil.cpu_count(logical=False)}")
+    print(f"Number of Threads: {psutil.cpu_count(logical=True)}")
+    
+    # RAM Information
+    ram = psutil.virtual_memory()
+    ram_total = ram.total / (1024 ** 3)  # Convert bytes to GB
+    print(f"Total RAM: {ram_total:.2f} GB")
+    
+    # Disk Information
+    disk = psutil.disk_partitions()
+    if disk:
+        for partition in disk:
+            try:
+                disk_usage = psutil.disk_usage(partition.mountpoint)
+                disk_total = disk_usage.total / (1024 ** 3)  # Convert bytes to GB
+                print(f"Disk ({partition.mountpoint}):")
+                print(f"  Type: {partition.fstype}")
+                print(f"  Size: {disk_total:.2f} GB")
+            except PermissionError:
+                print(f"Disk ({partition.mountpoint}): Access denied")
+    else:
+        print("Disk Information: Not available")
+    print("---------------------")
 
 
 def confirm(
