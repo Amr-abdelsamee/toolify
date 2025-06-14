@@ -78,3 +78,5 @@ docs/_build/
 
 logs/
 *.log
+
+dev-requirements.txt

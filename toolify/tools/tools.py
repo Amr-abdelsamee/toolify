@@ -171,7 +171,6 @@ def pct(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, e
         print(formatted_text)
 
 
-
 def pctm(text: str, tokens: list[int], colors: list, emoji: str = "") -> None:
     """Prints colored text with multiple color segments and an optional emoji prefix.
 
@@ -362,22 +361,38 @@ def confirm(
         sys.exit(0)
 
 
-def print_package_info() -> None:
-    """Prints information about the Toolify package and its functions."""
+def print_available_functions() -> None:
+    """Prints information about the Toolify.tools functions."""
     package_info = [
-        ("pct", "Prints text in a specified color with an optional emoji."),
         (
-            "print_arabic_text",
+            "pct", 
+            "Prints text in a specified color with an optional emoji."
+        ),
+        (
+            "pctm", 
+            "Prints colored text with multiple color segments and an optional emoji prefix."
+        ),
+        (
+            "pat",
             "Prints Arabic text with proper reshaping and bidirectional display.",
         ),
-        ("setup_logger", "Configures a logger for logging messages to a file."),
-        ("line_plotter", "Saves a line plot for multiple data lists."),
+        (
+            "setup_logger", 
+            "Configures a logger for logging messages to a file."),
         (
             "sheel_tashkeel",
             "Removes Arabic diacritics and specific characters from text.",
         ),
-        ("get_available_gpus", "Prints information about available CUDA GPUs."),
-        ("confirm", "Prints data and asks the user to confirm continuation."),
+        (
+            "get_available_gpus", 
+            "Prints information about available CUDA GPUs."),
+        (
+            "print_system_specs",
+            "Prints detailed system specifications including CPU model, number of cores, number of threads, total RAM, and disk information."
+        ),
+        (
+            "confirm", 
+            "Prints data and asks the user to confirm continuation."),
         (
             "print_package_info",
             "Prints information about the package and its functions.",
@@ -391,4 +406,5 @@ def print_package_info() -> None:
 if __name__ == "__main__":
     text = "This is a file to help in testing and debugging"
     pct(text, color=5, emoji="star")
-    print_package_info()
+    pctm(text, [1,2], ["red", "green"])
+    print_available_functions()
