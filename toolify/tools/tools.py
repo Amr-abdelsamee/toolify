@@ -1,3 +1,4 @@
+import os
 import re
 import sys
 import logging
@@ -236,7 +237,6 @@ def pat(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, e
     displayed_text = get_display(reshaped_text)
     pct(displayed_text, color, bcolor, emoji)
 
-
 def setup_logger(log_file: str = "log.log", format_type: str = "") -> logging.Logger:
     """Configures and returns a logger for logging messages to a file.
 
@@ -247,10 +247,16 @@ def setup_logger(log_file: str = "log.log", format_type: str = "") -> logging.Lo
     Returns:
         A configured logging.Logger instance.
     """
-    logger = logging.getLogger(__name__)
+
+    # Use log_file as part of logger_name if to ensure uniqueness
+    logger_name = f"logger_{os.path.basename(log_file).replace('.', '_')}"
+    logger = logging.getLogger(logger_name)
     logger.setLevel(logging.INFO)
     if logger.handlers:
         return logger
+
+    # Clear existing handlers to allow reconfiguration
+    logger.handlers = []
 
     file_handler = logging.FileHandler(log_file)
 
@@ -260,7 +266,6 @@ def setup_logger(log_file: str = "log.log", format_type: str = "") -> logging.Lo
         formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 
     file_handler.setFormatter(formatter)
-    logger.handlers = []
     logger.addHandler(file_handler)
     return logger
 
@@ -279,7 +284,7 @@ def sheel_tashkeel(text: str) -> str:
         arabic_diacritics,
         "",
         text.replace(">", "").replace("<", "").replace("^", "").replace("؞", ""),
-    )
+    ).strip()
 
 
 def get_available_gpus() -> None:

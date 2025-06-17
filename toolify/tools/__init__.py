@@ -13,7 +13,7 @@ from .tools import (
     get_available_gpus,
     print_system_specs,
     confirm,
-    print_package_info,
+    print_available_functions,
 )
 
 __all__ = [
@@ -29,5 +29,5 @@ __all__ = [
     "get_available_gpus",
     "print_system_specs",
     "confirm",
-    "print_package_info",
+    "print_available_functions",
 ]
