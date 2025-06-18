@@ -2,8 +2,10 @@
 
 from .audio import (
     get_silent_parts,
+    get_spectrogram,
 )
 
 __all__ = [
     "get_silent_parts",
+    "get_spectrogram",
 ]
