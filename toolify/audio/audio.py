@@ -4,7 +4,8 @@ from tqdm import tqdm
 import librosa.display
 import soundfile as sf
 import matplotlib.pyplot as plt
-
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import os
 
 def get_silent_parts(input_file_path, silence_threshold_db=-40, silence_margin_sec=0.15):
     y, sr = librosa.load(input_file_path)
@@ -118,3 +119,28 @@ def get_spectrogram(file, save_path=None, fft_size=2048, hop_size=None, window_s
     if show_save[0]:
         plt.show()
     plt.close()
+
+
+def get_duration(path):
+    try:
+        info = sf.info(path)
+        return info.frames / info.samplerate  # duration in seconds
+    except Exception as e:
+        print(f"Error reading {path}: {e}")
+        return 0
+
+
+def get_total_duration(directory, max_workers=50):
+    flac_files = []
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith(".wav"):
+                flac_files.append(os.path.join(root, file))
+
+    total_seconds = 0
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = [executor.submit(get_duration, path) for path in flac_files]
+        for f in as_completed(futures):
+            total_seconds += f.result()
+
+    return total_seconds / 60  # min
