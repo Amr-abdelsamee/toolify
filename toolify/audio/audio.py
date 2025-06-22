@@ -130,11 +130,11 @@ def get_duration(path):
         return 0
 
 
-def get_total_duration(directory, max_workers=50):
+def get_total_duration(directory, file_ext=".wav", max_workers=50):
     flac_files = []
     for root, _, files in os.walk(directory):
         for file in files:
-            if file.endswith(".wav"):
+            if file.endswith(file_ext):
                 flac_files.append(os.path.join(root, file))
 
     total_seconds = 0
