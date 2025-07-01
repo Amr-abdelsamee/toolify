@@ -237,6 +237,78 @@ def pat(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, e
     displayed_text = get_display(reshaped_text)
     pct(displayed_text, color, bcolor, emoji)
 
+
+def print_table(headers, rows, style=1, separator=None):
+    if not headers or not rows:
+        print("Empty data")
+        return
+
+    _TABLE_STYLES = {
+        1: ["╔", "═", "╗", "║", "╚", "╝", "╠", "╬", "╣", "╦", "╩"],
+        2: ["┌", "─", "┐", "│", "└", "┘", "├", "┼", "┤", "┬", "┴"],
+        3: ["╭", "─", "╮", "│", "╰", "╯", "├", "┼", "┤", "┬", "┴"],
+        4: ["┏", "━", "┓", "┃", "┗", "┛", "┣", "╋", "┫", "┳", "┻"],
+        5: ["┌", "╌", "┐", "│", "└", "┘", "├", "┼", "┤", "┬", "┴"],
+        6: ["+", "-", "+", "|", "+", "+", "+", "+", "+", "+", "+"],
+        7: [" ", "-", " ", " ", " ", " ", " ", "-", " ", "-", "-"],
+        8: ["|", "-", "|", "|", "|", "|", "|", "|", "|", "|", "|"],
+        9: ["╔", "─", "╗", "│", "╚", "╝", "├", "┼", "┤", "╦", "╩"],
+    }
+
+    # Calculate maximum width for each column
+    col_widths = [len(str(header)) for header in headers]
+    for idx, row in enumerate(rows):
+        if len(row) > len(headers):
+            print(f"Row {idx} has {len(row)} columns, but expected {len(headers)}")
+            exit()
+        for i, item in enumerate(row):
+            if i < len(col_widths):
+                col_widths[i] = max(col_widths[i], len(str(item)))
+
+    # Build table components
+    line_const = [_TABLE_STYLES[style][1] * (width + 2) for width in col_widths]
+    top_border = (
+        _TABLE_STYLES[style][0]
+        + _TABLE_STYLES[style][9].join(line_const)
+        + _TABLE_STYLES[style][2]
+    )
+    separator_line = (
+        _TABLE_STYLES[style][6]
+        + _TABLE_STYLES[style][7].join(line_const)
+        + _TABLE_STYLES[style][8]
+    )
+    bottom_border = (
+        _TABLE_STYLES[style][4]
+        + _TABLE_STYLES[style][10].join(line_const)
+        + _TABLE_STYLES[style][5]
+    )
+
+    # Print table
+    print(top_border)
+
+    # Print headers with proper alignment
+    header_row = _TABLE_STYLES[style][3] + " "
+    for i, header in enumerate(headers):
+        header_row += f"{str(header):<{col_widths[i]}} {_TABLE_STYLES[style][3]} "
+    print(header_row.rstrip())
+
+    print(separator_line)
+
+    # Print rows with proper alignment
+    for idx, row in enumerate(rows):
+        row_str = _TABLE_STYLES[style][3] + " "
+        for i, item in enumerate(row):
+            if i < len(col_widths):
+                row_str += f"{str(item):<{col_widths[i]}} {_TABLE_STYLES[style][3]} "
+            else:
+                row_str += " " * col_widths[i] + " " + _TABLE_STYLES[style][3]
+        print(row_str.rstrip())
+        if separator and idx < len(rows) - 1:
+            print(separator_line)
+
+    print(bottom_border)
+
+
 def setup_logger(log_file: str = "log.log", format_type: str = "") -> logging.Logger:
     """Configures and returns a logger for logging messages to a file.
 
