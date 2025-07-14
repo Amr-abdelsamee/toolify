@@ -153,7 +153,7 @@ RESET_COLOR = "\033[0m"
 DEFAULT_COLOR = "\033[37m"
 
 
-def pct(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, emoji: str = "") -> None:
+def pct(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, emoji: str = "", end_emoji: str = "") -> None:
     """Prints text in the specified color with an optional emoji.
 
     Args:
@@ -164,15 +164,17 @@ def pct(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, e
     color_code = COLORS.get(color, DEFAULT_COLOR)
     bcode_code = BCOLOR.get(bcolor, "") if bcolor is not None else ""
     emoji_char = EMOS.get(emoji, "")
+    end_emoji_char = EMOS.get(end_emoji, "")
 
     formatted_text = f"{color_code}{bcode_code}{text}{RESET_COLOR}"
     if emoji_char:
-        print(f"{emoji_char} {formatted_text}")
-    else:
-        print(formatted_text)
+        formatted_text = f"{emoji_char} {formatted_text}"
+    if end_emoji_char:
+        formatted_text = f"{formatted_text} {end_emoji_char}"
+    print(formatted_text)
 
 
-def pctm(text: str, tokens: list[int], colors: list, emoji: str = "") -> None:
+def pctm(text: str, tokens: list[int], colors: list, emoji: str = "", end_emoji: str = "") -> None:
     """Prints colored text with multiple color segments and an optional emoji prefix.
 
     The function splits the input text into segments based on the token counts and
@@ -217,15 +219,17 @@ def pctm(text: str, tokens: list[int], colors: list, emoji: str = "") -> None:
         colored_text = (f"{colored_text}{RESET_COLOR}{' '.join(text_tokens[next_tokens:])}")
 
     emoji_char = EMOS.get(emoji, "")
+    end_emoji_char = EMOS.get(end_emoji, "")
     formatted_text = f"{colored_text}{RESET_COLOR}"
 
     if emoji_char:
-        print(f"{emoji_char} {formatted_text}")
-    else:
-        print(formatted_text)
+        formatted_text = f"{emoji_char} {formatted_text}"
+    if end_emoji_char:
+        formatted_text = f"{formatted_text} {end_emoji_char}"
+    print(formatted_text)
 
 
-def pat(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, emoji: str = "") -> None:
+def pat(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, emoji: str = "", end_emoji: str = "") -> None:
     """Prints Arabic text with proper reshaping and bidirectional display.
 
     Args:
@@ -235,7 +239,7 @@ def pat(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, e
     """
     reshaped_text = arabic_reshaper.reshape(text)
     displayed_text = get_display(reshaped_text)
-    pct(displayed_text, color, bcolor, emoji)
+    pct(displayed_text, color, bcolor, emoji, end_emoji)
 
 
 def print_table(headers, rows, style=1, separator=None):
