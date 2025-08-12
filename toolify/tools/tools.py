@@ -4,7 +4,7 @@ import sys
 import logging
 import psutil
 import platform
-import arabic_reshaper
+from arabic_reshaper import ArabicReshaper
 from bidi.algorithm import get_display
 from typing import Union, List, Tuple
 
@@ -237,7 +237,13 @@ def pat(text: str, color: Union[str, int] = 1, bcolor: Union[str, int] = None, e
         color: Color code (int from COLORS or str from COLORS_STR). Defaults to 1 (white).
         emoji: Emoji key from EMOS dictionary. Defaults to empty string.
     """
-    reshaped_text = arabic_reshaper.reshape(text)
+    configuration = {
+        'delete_harakat': False,  # Keep diacritics (harakat)
+        'shift_harakat_position': False,  # Prevent repositioning of diacritics
+        'use_unshaped_instead_of_isolated': True  # Use unshaped forms to preserve diacritics
+    }
+    reshaper = ArabicReshaper(configuration=configuration)
+    reshaped_text = reshaper.reshape(text)
     displayed_text = get_display(reshaped_text)
     pct(displayed_text, color, bcolor, emoji, end_emoji)
 
