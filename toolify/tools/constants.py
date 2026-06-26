@@ -4,7 +4,6 @@ Constants used by toolify.tools.
 
 import re
 
-
 __all__ = [
     "COLORS",
     "BCOLOR",
@@ -68,7 +67,6 @@ _COLOR_ALIASES = {
     "cyan": "cyan",
     "magenta": "magenta",
     "white": "white",
-
     "bblack": "bright_black",
     "bred": "bright_red",
     "bgreen": "bright_green",
@@ -82,27 +80,28 @@ _COLOR_ALIASES = {
 
 # Public foreground color aliases
 COLORS = {
-    alias: _COLOR_VALUES[color_name]
-    for alias, color_name in _COLOR_ALIASES.items()
+    alias: _COLOR_VALUES[color_name] for alias, color_name in _COLOR_ALIASES.items()
 }
 
-COLORS.update({
-    1: _COLOR_VALUES["white"],
-    2: _COLOR_VALUES["red"],
-    3: _COLOR_VALUES["green"],
-    4: _COLOR_VALUES["blue"],
-    5: _COLOR_VALUES["yellow"],
-    6: _COLOR_VALUES["cyan"],
-    7: _COLOR_VALUES["magenta"],
-    8: _COLOR_VALUES["bright_red"],
-    9: _COLOR_VALUES["bright_green"],
-    10: _COLOR_VALUES["bright_blue"],
-    11: _COLOR_VALUES["bright_yellow"],
-    12: _COLOR_VALUES["bright_cyan"],
-    13: _COLOR_VALUES["bright_magenta"],
-    14: _COLOR_VALUES["bright_white"],
-    15: _COLOR_VALUES["bright_black"],
-})
+COLORS.update(
+    {
+        1: _COLOR_VALUES["white"],
+        2: _COLOR_VALUES["red"],
+        3: _COLOR_VALUES["green"],
+        4: _COLOR_VALUES["blue"],
+        5: _COLOR_VALUES["yellow"],
+        6: _COLOR_VALUES["cyan"],
+        7: _COLOR_VALUES["magenta"],
+        8: _COLOR_VALUES["bright_red"],
+        9: _COLOR_VALUES["bright_green"],
+        10: _COLOR_VALUES["bright_blue"],
+        11: _COLOR_VALUES["bright_yellow"],
+        12: _COLOR_VALUES["bright_cyan"],
+        13: _COLOR_VALUES["bright_magenta"],
+        14: _COLOR_VALUES["bright_white"],
+        15: _COLOR_VALUES["bright_black"],
+    }
+)
 
 
 # Public background color aliases
@@ -111,46 +110,45 @@ BCOLOR = {
     for alias, color_name in _COLOR_ALIASES.items()
 }
 
-BCOLOR.update({
-    1: _BACKGROUND_VALUES["black"],
-    2: _BACKGROUND_VALUES["red"],
-    3: _BACKGROUND_VALUES["green"],
-    4: _BACKGROUND_VALUES["yellow"],
-    5: _BACKGROUND_VALUES["blue"],
-    6: _BACKGROUND_VALUES["magenta"],
-    7: _BACKGROUND_VALUES["cyan"],
-    8: _BACKGROUND_VALUES["white"],
-    9: _BACKGROUND_VALUES["bright_black"],
-    10: _BACKGROUND_VALUES["bright_red"],
-    11: _BACKGROUND_VALUES["bright_green"],
-    12: _BACKGROUND_VALUES["bright_yellow"],
-    13: _BACKGROUND_VALUES["bright_blue"],
-    14: _BACKGROUND_VALUES["bright_magenta"],
-    15: _BACKGROUND_VALUES["bright_cyan"],
-    16: _BACKGROUND_VALUES["bright_white"],
-})
+BCOLOR.update(
+    {
+        1: _BACKGROUND_VALUES["black"],
+        2: _BACKGROUND_VALUES["red"],
+        3: _BACKGROUND_VALUES["green"],
+        4: _BACKGROUND_VALUES["yellow"],
+        5: _BACKGROUND_VALUES["blue"],
+        6: _BACKGROUND_VALUES["magenta"],
+        7: _BACKGROUND_VALUES["cyan"],
+        8: _BACKGROUND_VALUES["white"],
+        9: _BACKGROUND_VALUES["bright_black"],
+        10: _BACKGROUND_VALUES["bright_red"],
+        11: _BACKGROUND_VALUES["bright_green"],
+        12: _BACKGROUND_VALUES["bright_yellow"],
+        13: _BACKGROUND_VALUES["bright_blue"],
+        14: _BACKGROUND_VALUES["bright_magenta"],
+        15: _BACKGROUND_VALUES["bright_cyan"],
+        16: _BACKGROUND_VALUES["bright_white"],
+    }
+)
 
 
 EMOS = {
-    "launch": "🚀",
-    "check": "✅",
-    "cross": "❌",
-    "warn1": "⚠️",
-    "warn2": "⛔️",
-    "warn3": "🛑",
-    "ok": "🆗",
+    "success": "✅",
     "done": "✔️",
-    "arrow": "⏩",
-    "retry": "🔄",
-    "fix": "🛠️",
+    "error": "❌",
+    "fail": "💥",
+    "warning": "⚠️",
+    "stop": "🛑",
+    "blocked": "⛔️",
+    "ok": "🆗",
     "lock": "🔒",
     "unlock": "🔓",
-    "settings": "⚙️",
+    "key": "🔑",
+    "info": "ℹ️",
+    "note": "📝",
     "star": "⭐️",
-    "heart": "❤️",
     "fire": "🔥",
-    "error": "💥",
-    "clock": "🕒",
+    "heart": "❤️",
     "bye": "👋🏻",
 }
 
@@ -173,9 +171,7 @@ TABLE_STYLES = {
 
 
 # More complete Arabic diacritics/Quranic marks range
-ARABIC_DIACRITICS_RE = re.compile(
-    r"[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]"
-)
+ARABIC_DIACRITICS_RE = re.compile(r"[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]")
 
 
 # Special symbols used in your Egyptian Arabic diacritization work
