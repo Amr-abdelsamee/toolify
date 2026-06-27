@@ -210,6 +210,7 @@ def get_hf_model_size(
             files_metadata=True,
         )
 
+        total_bytes = 0
         for file in info.siblings:
             file_size = getattr(file, "size", None)
             if file_size is not None:
