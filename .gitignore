@@ -25,7 +25,6 @@ MANIFEST
 *.spec
 
 updates/
-tests/
 htmlcov/
 .tox/
 .nox/
@@ -57,9 +56,7 @@ venv.bak/
 *.swo
 .DS_Store
 
-docs/_build/
-docs/generated/
-
+site/
 .env
 .venv
 env/
@@ -78,5 +75,3 @@ docs/_build/
 
 logs/
 *.log
-
-dev-requirements.txt

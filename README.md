@@ -1,74 +1,61 @@
-# toolify
+# Toolify
 
-A Python library that provides helper functions and tools for developers.
+[![PyPI](https://img.shields.io/pypi/v/toolify)](https://pypi.org/project/toolify/)
+[![Python](https://img.shields.io/pypi/pyversions/toolify)](https://pypi.org/project/toolify/)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://amr-abdelsamee.github.io/toolify/)
+[![License](https://img.shields.io/pypi/l/toolify)](https://github.com/Amr-abdelsamee/toolify/blob/main/LICENSE)
+
+Toolify is a Python utility library for terminal output, Arabic text handling,
+logging, plotting, audio inspection, Hugging Face downloads, and YouTube media
+downloads.
+
+## Features
+
+| Module | Purpose |
+| --- | --- |
+| `toolify.tools` | Colored output, Arabic text, tables, logging, and confirmation |
+| `toolify.plots` | Line-plot generation |
+| `toolify.audio` | Silence detection, spectrograms, and duration helpers |
+| `toolify.ai` | Hugging Face repository inspection and downloads |
+| `toolify.youtube` | YouTube video, transcript, and playlist utilities |
 
 ## Installation
 
-Install `toolify` from PyPI:
+Install the latest release from PyPI:
 
 ```bash
 pip install toolify
 ```
 
-### Requirements
+Python 3.11 or newer is required. FFmpeg is also required when YouTube video
+and audio streams need to be merged.
 
-- Python >= 3.8
-- Dependencies:
-  - `python-bidi==0.6.6`
-  - `arabic_reshaper==3.0.0`
 
-## Usage
+## Documentation
 
-Import and use the functions from the `toolify.tools` module:
+The complete guides and API reference are available in the
+[Toolify documentation](https://amr-abdelsamee.github.io/toolify/).
 
-```python
-from toolify.tools import pct, pat, print_package_info
+- [Installation](https://amr-abdelsamee.github.io/toolify/getting-started/installation/)
+- [Quick start](https://amr-abdelsamee.github.io/toolify/getting-started/quickstart/)
+- [User guides](https://amr-abdelsamee.github.io/toolify/guides/tools/)
+- [API reference](https://amr-abdelsamee.github.io/toolify/reference/tools/)
+- [Changelog](https://github.com/Amr-abdelsamee/toolify/blob/main/CHANGELOG.md)
 
-# Print colored text
-pct("Hello, World!", color="green", emoji="star")
+## Development
 
-# Print Arabic text
-pat("مرحبا بالعالم", color="blue", emoji="heart")
-
-# Print package information
-print_package_info()
+```bash
+git clone https://github.com/Amr-abdelsamee/toolify.git
+cd toolify
+pip install -e ".[dev,docs]"
+python -m pytest -m "not integration"
+mkdocs serve
 ```
 
-## Functions
-
-| Function             | Description                                                         |
-| -------------------- | ------------------------------------------------------------------- |
-| `pct`                | Prints text in a specified color with an optional emoji.            |
-| `pat`                | Prints Arabic text with proper reshaping and bidirectional display. |
-| `setup_logger`       | Configures a logger for logging messages to a file.                 |
-| `save_text_list`     | Saves a list of text arrays to a file.                              |
-| `save_text`          | Saves a single text string to a file.                               |
-| `line_plotter`       | Saves a line plot for multiple data lists.                          |
-| `sheel_tashkeel`     | Removes Arabic diacritics and specific characters from text.        |
-| `get_available_gpus` | Prints information about available CUDA GPUs.                       |
-| `print_package_info` | Prints information about the package and its functions.             |
-
-## Example: Plotting Data
-
-```python
-from toolify.tools import line_plotter
-
-data = [[1, 2, 3], [4, 5, 6]]
-line_plotter(
-    data_list=data,
-    save_name="plot.png",
-    legend_list=["Line 1", "Line 2"],
-    x_label="X Axis",
-    y_label="Y Axis",
-    title="Sample Plot"
-)
-```
-
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request on [GitHub](https://github.com/Amr-abdelsamee/toolify).
+See the [contributing guide](https://amr-abdelsamee.github.io/toolify/development/contributing/)
+and [release guide](https://amr-abdelsamee.github.io/toolify/development/releasing/).
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Toolify is licensed under the
+[MIT License](https://github.com/Amr-abdelsamee/toolify/blob/main/LICENSE).

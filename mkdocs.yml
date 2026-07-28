@@ -1,0 +1,59 @@
+site_name: Toolify
+site_description: Python utilities for text, audio, AI, plotting, and YouTube
+site_url: https://amr-abdelsamee.github.io/toolify/
+
+repo_name: Amr-abdelsamee/toolify
+repo_url: https://github.com/Amr-abdelsamee/toolify
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [.]
+          options:
+            docstring_style: google
+            docstring_options:
+              warn_missing_types: false
+            members_order: source
+            show_source: true
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quickstart.md
+  - Guides:
+      - Terminal and Text: guides/tools.md
+      - Plotting: guides/plotting.md
+      - Audio: guides/audio.md
+      - Hugging Face: guides/ai.md
+      - YouTube: guides/youtube.md
+  - API Reference:
+      - Tools: reference/tools.md
+      - Plots: reference/plots.md
+      - Audio: reference/audio.md
+      - AI: reference/ai.md
+      - YouTube: reference/youtube.md
+  - Development:
+      - Contributing: development/contributing.md
+      - Releasing: development/releasing.md
+
+copyright: Copyright &copy; 2025–2026 Amr Abdelsamea

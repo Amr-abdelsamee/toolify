@@ -1,0 +1,7 @@
+-r requirements.txt
+
+pytest==8.4.0
+build
+twine
+mkdocs-material
+mkdocstrings[python]

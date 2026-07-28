@@ -1,4 +1,18 @@
+# Terminal and Arabic text utilities
 python-bidi==0.6.6
-arabic_reshaper==3.0.0
+arabic-reshaper==3.0.0
+
+# YouTube downloads and transcripts
 youtube-transcript-api==1.1.0
-yt-dlp==2024.10.22
+yt-dlp==2025.10.22
+
+# Audio processing and plotting
+tqdm==4.67.1
+matplotlib==3.11.0
+librosa==0.11.0
+numpy==2.4.6
+soundfile==0.14.0
+
+# Hugging Face downloads
+huggingface-hub==1.21.0
+hf-transfer==0.1.9

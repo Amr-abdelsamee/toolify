@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "toolify"
+version = "1.0.0"
+description = "Utilities for terminal output, Arabic text, audio, plotting, Hugging Face, and YouTube."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+
+authors = [
+    { name = "Amr Abdelsamea", email = "amr.abdelsamee33@gmail.com" }
+]
+
+keywords = [
+    "tools",
+    "arabic",
+    "audio",
+    "plotting",
+    "youtube",
+    "huggingface",
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "python-bidi==0.6.6",
+    "arabic-reshaper==3.0.0",
+    "youtube-transcript-api==1.1.0",
+    "yt-dlp==2025.10.22",
+    "tqdm==4.67.1",
+    "matplotlib==3.11.0",
+    "librosa==0.11.0",
+    "numpy==2.4.6",
+    "soundfile==0.14.0",
+    "huggingface-hub==1.21.0",
+    "hf-transfer==0.1.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "build",
+    "twine",
+]
+
+docs = [
+    "mkdocs-material",
+    "mkdocstrings[python]",
+]
+
+[project.urls]
+Homepage = "https://github.com/Amr-abdelsamee/toolify"
+Source = "https://github.com/Amr-abdelsamee/toolify"
+Documentation = "https://amr-abdelsamee.github.io/toolify/"
+Issues = "https://github.com/Amr-abdelsamee/toolify/issues"
+Changelog = "https://github.com/Amr-abdelsamee/toolify/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+include = ["toolify*"]
+exclude = ["tests*", "docs*"]
