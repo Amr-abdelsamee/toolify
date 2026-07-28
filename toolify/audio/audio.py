@@ -1,13 +1,37 @@
-import librosa
-import numpy as np
-from tqdm import tqdm
-import librosa.display
-import soundfile as sf
-import matplotlib.pyplot as plt
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import os
+"""Helpers for dealing with audio files."""
 
-def get_silent_parts(input_file_path, silence_threshold_db=-40, silence_margin_sec=0.15):
+import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+import librosa
+import librosa.display
+import matplotlib.pyplot as plt
+import numpy as np
+import soundfile as sf
+from tqdm import tqdm
+
+__all__ = [
+    "get_silent_parts",
+    "get_spectrogram",
+    "get_duration",
+    "get_total_duration",
+]
+
+
+def get_silent_parts(
+    input_file_path, silence_threshold_db=-40, silence_margin_sec=0.15
+):
+    """Find silent regions in an audio file.
+
+    Args:
+        input_file_path: Path to the audio file.
+        silence_threshold_db: Samples at or below this level are considered silent.
+        silence_margin_sec: Margin applied to detected silence boundaries.
+
+    Returns:
+        A tuple of ``(silent_parts, waveform, sample_rate)``. Each silent part
+        contains sample indices, times in seconds, and duration.
+    """
     y, sr = librosa.load(input_file_path)
 
     db = librosa.amplitude_to_db(np.abs(y))
@@ -68,9 +92,31 @@ def get_silent_parts(input_file_path, silence_threshold_db=-40, silence_margin_s
     return silent_parts, y, sr
 
 
-def get_spectrogram(file, save_path=None, fft_size=2048, hop_size=None, window_size=None, xticks=None, yticks=None, fig_size=(10, 4), show_save=(False, True), save_params=None):
-    """
-    spectrogram is a visual representation of the spectrum of frequencies of a signal as it varies with time.
+def get_spectrogram(
+    file,
+    save_path=None,
+    fft_size=2048,
+    hop_size=None,
+    window_size=None,
+    xticks=None,
+    yticks=None,
+    fig_size=(10, 4),
+    show_save=(False, True),
+    save_params=None,
+):
+    """Create a log-frequency spectrogram for an audio file.
+
+    Args:
+        file: Path to the input audio file.
+        save_path: Output image path. Defaults to the input name with ``.png``.
+        fft_size: Number of samples used for each FFT.
+        hop_size: Samples between frames. Defaults to one quarter of the window.
+        window_size: FFT window length. Defaults to ``fft_size``.
+        xticks: Optional custom x-axis tick positions.
+        yticks: Optional custom y-axis tick positions.
+        fig_size: Matplotlib figure size.
+        show_save: ``(show, save)`` flags controlling display and file output.
+        save_params: Optional keyword arguments passed to ``plt.savefig``.
     """
     signal, sample_rate = sf.read(file)
 
@@ -103,8 +149,8 @@ def get_spectrogram(file, save_path=None, fft_size=2048, hop_size=None, window_s
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
     if xticks:
-        plt.yticks(xticks)
-    if yticks:        
+        plt.xticks(xticks)
+    if yticks:
         plt.yticks(yticks)
 
     plt.colorbar(img, format="%+2.f dBFS")
@@ -115,13 +161,14 @@ def get_spectrogram(file, save_path=None, fft_size=2048, hop_size=None, window_s
             save_params = SAVE_PARAMS
         if not save_path:
             save_path = file.replace(".wav", ".png")
-        plt.savefig(save_path,**save_params)
+        plt.savefig(save_path, **save_params)
     if show_save[0]:
         plt.show()
     plt.close()
 
 
 def get_duration(path):
+    """Return an audio file's duration in seconds, or ``0`` if it cannot be read."""
     try:
         info = sf.info(path)
         return info.frames / info.samplerate  # duration in seconds
@@ -131,6 +178,13 @@ def get_duration(path):
 
 
 def get_total_duration(directory, file_ext=".wav", max_workers=50):
+    """Return the combined duration in seconds.
+
+    Args:
+        directory: Directory searched recursively for audio files.
+        file_ext: Filename extension to include.
+        max_workers: Maximum number of threads used to inspect files.
+    """
     flac_files = []
     for root, _, files in os.walk(directory):
         for file in files:
@@ -142,5 +196,4 @@ def get_total_duration(directory, file_ext=".wav", max_workers=50):
         futures = [executor.submit(get_duration, path) for path in flac_files]
         for f in as_completed(futures):
             total_seconds += f.result()
-
-    return total_seconds / 60  # min
+    return total_seconds # duration in seconds
