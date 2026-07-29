@@ -8,6 +8,17 @@
 
 ### Fixed
 
+## [1.0.1] - 2026-07-29
+
+### Added
+
+- Added a project logo.
+
+### Changed
+
+- Replaced exact runtime dependency pins with tested minimum versions to
+  improve compatibility with existing Python environments.
+
 ## [1.0.0] - 2026-07-29
 
 ### Added

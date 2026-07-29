@@ -1,4 +1,12 @@
-# Toolify
+<h1>
+  <img
+    src="docs/assets/images/toolify-logo.png"
+    alt="Toolify logo"
+    width="84"
+    align="absmiddle"
+  >
+  Toolify
+</h1>
 
 [![PyPI](https://img.shields.io/pypi/v/toolify)](https://pypi.org/project/toolify/)
 [![Python](https://img.shields.io/pypi/pyversions/toolify)](https://pypi.org/project/toolify/)
@@ -29,6 +37,39 @@ pip install toolify
 
 Python 3.11 or newer is required. FFmpeg is also required when YouTube video
 and audio streams need to be merged.
+
+### Install FFmpeg
+
+FFmpeg is a system application, not a Python package.
+
+#### Windows
+
+Install it from PowerShell with Windows Package Manager:
+
+```powershell
+winget install --exact --id Gyan.FFmpeg
+```
+
+Close and reopen the terminal after installation. If `winget` is unavailable,
+download a Windows build from the
+[official FFmpeg download page](https://ffmpeg.org/download.html), extract it,
+and add its `bin` directory to the Windows `PATH`.
+
+#### Linux
+
+Ubuntu, Debian, and Linux Mint:
+
+```bash
+sudo apt update
+sudo apt install ffmpeg
+```
+
+
+Verify the installation on either operating system:
+
+```bash
+ffmpeg -version
+```
 
 
 ## Documentation

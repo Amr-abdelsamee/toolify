@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "toolify"
-version = "1.0.0"
+version = "1.0.1"
 description = "Utilities for terminal output, Arabic text, audio, plotting, Hugging Face, and YouTube."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -31,17 +31,17 @@ classifiers = [
 ]
 
 dependencies = [
-    "python-bidi==0.6.6",
-    "arabic-reshaper==3.0.0",
-    "youtube-transcript-api==1.1.0",
-    "yt-dlp==2025.10.22",
-    "tqdm==4.67.1",
-    "matplotlib==3.11.0",
-    "librosa==0.11.0",
-    "numpy==2.4.6",
-    "soundfile==0.14.0",
-    "huggingface-hub==1.21.0",
-    "hf-transfer==0.1.9",
+    "python-bidi>=0.6.6",
+    "arabic-reshaper>=3.0.0",
+    "youtube-transcript-api>=1.1.0",
+    "yt-dlp>=2025.10.22",
+    "tqdm>=4.67.1",
+    "matplotlib>=3.11.0",
+    "librosa>=0.11.0",
+    "numpy>=1.25",
+    "soundfile>=0.14.0",
+    "huggingface-hub>=1.21.0",
+    "hf-transfer>=0.1.9",
 ]
 
 [project.optional-dependencies]
